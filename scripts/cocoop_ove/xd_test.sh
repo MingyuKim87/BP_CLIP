@@ -4,7 +4,7 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=cocoop
+TRAINER=CoCoOp_OVE
 
 DATASET=$1
 SEED=$2
@@ -27,7 +27,7 @@ else
     --dataset-config-file configs/datasets/${DATASET}.yaml \
     --config-file configs/trainers/${TRAINER}/${CFG}.yaml \
     --output-dir ${DIR} \
-    --model-dir output/imagenet/mcmc_${L}_epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED} \
+    --model-dir output/imagenet/epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED} \
     --load-epoch ${LOADEP} \
     --eval-only \
     OPTIM.MAX_EPOCH ${EPOCHS} \

@@ -4,13 +4,13 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=CoCoOp_OVE
+TRAINER=CoOp_OVE_PG
 
 DATASET=imagenet
 SEED=$1
 EPOCHS=$2
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
 SHOTS=16
 
 
@@ -26,5 +26,5 @@ else
     --config-file configs/trainers/${TRAINER}/${CFG}.yaml \
     --output-dir ${DIR} \
     DATASET.NUM_SHOTS ${SHOTS} \
-    OPTIM.MAX_EPOCH ${EPOCHS} \
+    OPTIM.MAX_EPOCH ${EPOCHS}
 fi

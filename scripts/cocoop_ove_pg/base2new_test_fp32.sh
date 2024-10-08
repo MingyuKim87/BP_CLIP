@@ -14,10 +14,11 @@ EPOCHS=$4
 CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
 SHOTS=16
 LOADEP=$4
+LAMBDA1=$5
 SUB=new
 
 
-COMMON_DIR=${DATASET}/epochs_${EPOCHS}/shots_${SHOTS}/${TRAINER}_fp32/${CFG}/seed${SEED}
+COMMON_DIR=${DATASET}/epochs_${EPOCHS}/shots_${SHOTS}/${TRAINER}_${LAMBDA1}_fp32/${CFG}/seed${SEED}
 MODEL_DIR=output/base2new/train_base/${COMMON_DIR}
 DIR=output/base2new/test_${SUB}/${COMMON_DIR}
 if [ -d "$DIR" ]; then
@@ -35,7 +36,8 @@ else
     --eval-only \
     DATASET.NUM_SHOTS ${SHOTS} \
     DATASET.SUBSAMPLE_CLASSES ${SUB} \
-    OPTIM.MAX_EPOCH ${EPOCHS} 
+    OPTIM.MAX_EPOCH ${EPOCHS} \
+    TRAINER.COCOOP_OVE_PG.LAMBDA_1 ${LAMBDA1}
 fi
 
 # extract accuracy and macro_f1 from log.txt

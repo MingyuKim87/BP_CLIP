@@ -487,7 +487,7 @@ class CoCoOp_OVE_PG(TrainerX):
         self.eps = 1e-8
         assert self.lambda_1 is not None, "LAMBDA_1 must be given in cfg.TRAINER.COCOOP_OVE_PG.LAMBDA_1"
         assert self.alpha is not None, "ALPHA must be given in cfg.TRAINER.COCOOP_OVE_PG.ALPHA"
-        assert self.M is not None, "M must be given in cfg.TRAINER.COCOOP_OVE_PG.M (It indicates the number of gibbs samples) "
+        assert self.M is not None, "M must be given in cfg.TRAINER.COCOOP_OVE_PG.M (It indicates the number of gibbs samples)"
 
         print("Turning off gradients in both the image and the text encoder")
         name_to_update = "prompt_learner"

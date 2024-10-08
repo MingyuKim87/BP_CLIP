@@ -70,16 +70,16 @@
             //     "DATASET.SUBSAMPLE_CLASSES", "base" 
             // ]
             // Training for CoOpOp_OVE_PG
-            "args" : [
-                "--root=./data", 
-                "--seed=1",
-                "--trainer=CoCoOp_OVE_PG",
-                "--dataset-config-file=configs/datasets/caltech101.yaml",
-                "--config-file=configs/trainers/CoCoOp_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/CoCoOp_OVE_PG/vit_b16_c4_ep10_batch1/seed1",
-                "DATASET.NUM_SHOTS", "16",
-                "DATASET.SUBSAMPLE_CLASSES", "base" 
-            ]
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=CoCoOp_OVE_PG",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/CoCoOp_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/CoCoOp_OVE_PG/vit_b16_c4_ep10_batch1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base" 
+            // ]
             // Training for VAT_CoOp
             // "args" : [
             //     "--root=./data", 
@@ -104,6 +104,18 @@
             //     "DATASET.SUBSAMPLE_CLASSES", "base", 
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
+            // Training for CoOp on ImageNet
+            "args" : [
+                "--root=./data", 
+                "--seed=1",
+                "--trainer=CoOp",
+                "--dataset-config-file=configs/datasets/imagenet.yaml",
+                "--config-file=configs/trainers/CoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+                "--output-dir=output_temp/imagenet/epochs_5/CoOp/vit_b16_c4_ep10_batch4_ctxv1_16shots/seed1",
+                "DATASET.NUM_SHOTS", "16",
+                "DATASET.SUBSAMPLE_CLASSES", "base", 
+                "OPTIM.MAX_EPOCH", "5" 
+            ]
             // Test for CoOp_OVE
             // "args" : [
             //     "--root=./data", 
@@ -155,11 +167,11 @@
             // "args" : [
             //     "--root=./data", 
             //     "--seed=1",
-            //     "--trainer=VPT",
+            //     "--trainer=VPT_CoCoOp",
             //     "--dataset-config-file=configs/datasets/eurosat.yaml",
-            //     "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-            //     "--output-dir=output_temp/base2new/test_new/eurosat/mcmc_10_epochs_10/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
-            //     "--model-dir=output/base2new/train_base/eurosat/mcmc_10_epochs_10/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch1_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/test_new/eurosat/mcmc_10_epochs_10/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch1_ctxv1/seed1",
+            //     "--model-dir=output/base2new/train_base/eurosat/mcmc_10_epochs_10/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch1_ctxv1/seed1",
             //     "--load-epoch=10",
             //     "--eval-only",
             //     "DATASET.NUM_SHOTS", "16",

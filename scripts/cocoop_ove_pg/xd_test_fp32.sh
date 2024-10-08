@@ -4,7 +4,7 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=CoOp
+TRAINER=CoCoOp_OVE_PG
 
 DATASET=$1
 SEED=$2
@@ -12,7 +12,7 @@ EPOCHS=$4
 LOADEP=$4
 GPUIDS=$5
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
 SHOTS=16
 
 
@@ -30,5 +30,5 @@ else
     --model-dir output/imagenet/epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED} \
     --load-epoch ${LOADEP} \
     --eval-only \
-    OPTIM.MAX_EPOCH ${EPOCHS} 
+    OPTIM.MAX_EPOCH ${EPOCHS} \
 fi

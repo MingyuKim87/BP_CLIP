@@ -4,31 +4,27 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=CoOp_OVE
+TRAINER=CoCoOp_OVE_PG
 
-DATASET=$1
-SEED=$2
-EPOCHS=$4
-LOADEP=$4
-GPUIDS=$5
+DATASET=imagenet
+SEED=$1
+EPOCHS=$2
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
 SHOTS=16
 
 
-DIR=output/evaluation/${TRAINER}/${CFG}_${SHOTS}shots/${DATASET}/seed${SEED}
+DIR=output/${DATASET}/epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED}
 if [ -d "$DIR" ]; then
     echo "Oops! The results exist at ${DIR} (so skip this job)"
 else
-    CUDA_VISIBLE_DEVICES=${GPUIDS} python train.py \
+    python train.py \
     --root ${DATA} \
     --seed ${SEED} \
     --trainer ${TRAINER} \
     --dataset-config-file configs/datasets/${DATASET}.yaml \
     --config-file configs/trainers/${TRAINER}/${CFG}.yaml \
     --output-dir ${DIR} \
-    --model-dir output/imagenet/epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED} \
-    --load-epoch ${LOADEP} \
-    --eval-only \
+    DATASET.NUM_SHOTS ${SHOTS} \
     OPTIM.MAX_EPOCH ${EPOCHS} \
 fi
