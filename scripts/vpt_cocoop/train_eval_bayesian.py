@@ -2,8 +2,7 @@ import os
 import argparse
 
 # datasets = ["caltech101", "dtd", "eurosat", "fgvc_aircraft", "food101", "oxford_flowers", "oxford_pets", "stanford_cars", "sun397", "ucf101"]
-datasets = ["fgvc_aircraft", "eurosat", "ucf101", "stanford_cars", "oxford_flowers"]
-datasets_2 = ["dtd"]
+datasets = ["fgvc_aircraft", "eurosat", "ucf101", "stanford_cars", "oxford_flowers", "dtd"]
 datasets_3 = ["caltech101", "food101", "oxford_pets", "sun397", "ucf101"]
 
 if __name__ == "__main__":

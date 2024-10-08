@@ -29,7 +29,7 @@ MODEL:
     NAME: "ViT-B/16"
 
 TRAINER:
-  VPT:
+  VPT_COCOOP:
     N_CTX: 4
     CTX_INIT: "a photo of a"
     PREC: "fp16"

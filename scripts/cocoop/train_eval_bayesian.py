@@ -15,6 +15,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     for seed in [1, 2, 3]:
-        for dataset in datasets:
+        for dataset in datasets_2:
             os.system(f"bash base2new_train.sh {dataset} {seed} {args.gpuids} {args.epochs}")
             os.system(f"bash base2new_test.sh {dataset} {seed} {args.gpuids} {args.epochs}")

@@ -23,11 +23,21 @@ import datasets.imagenetv2
 import datasets.imagenet_a
 import datasets.imagenet_r
 
+# coop
 import trainers.coop
 import trainers.coop_ove
 import trainers.coop_ove_pg
+
+# cocoop
 import trainers.cocoop
+import trainers.cocoop_ove
+import trainers.cocoop_ove_pg
+
+# vpt
 import trainers.vpt
+import trainers.vpt_cocoop
+
+# zeroclip
 import trainers.zsclip
 
 def print_args(args, cfg):
@@ -123,15 +133,40 @@ def extend_cfg(cfg):
     cfg.TRAINER.COCOOP.CTX_INIT = ""  # initialization words
     cfg.TRAINER.COCOOP.PREC = "fp16"  # fp16, fp32, amp
 
+    # CoCoOp_OVE
+    cfg.TRAINER.COCOOP_OVE = CN()
+    cfg.TRAINER.COCOOP_OVE.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.COCOOP_OVE.LAMBDA_1 = 0.0  # weight for KD
+    cfg.TRAINER.COCOOP_OVE.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.COCOOP_OVE.PREC = "fp16"  # fp16, fp32, amp
+
+    # CoOp_OVE_PG
+    cfg.TRAINER.COCOOP_OVE_PG = CN()
+    cfg.TRAINER.COCOOP_OVE_PG.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.COCOOP_OVE_PG.LAMBDA_1 = 0.0  # weight for KD
+    cfg.TRAINER.COCOOP_OVE_PG.ALPHA = 1000.0  # precision for logit prior
+    cfg.TRAINER.COCOOP_OVE_PG.M = 1           # the number of gibbs samples
+    cfg.TRAINER.COCOOP_OVE_PG.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.COCOOP_OVE_PG.PREC = "fp32"  # fp16, fp32, amp
+
     # VPT
     cfg.TRAINER.VPT = CN()
     cfg.TRAINER.VPT.N_CTX = 16  # number of context vectors
     cfg.TRAINER.VPT.L = 10  # number of monte carlo samples
     cfg.TRAINER.VPT.CTX_INIT = ""  # initialization words
     cfg.TRAINER.VPT.PREC = "fp16"  # fp16, fp32, amp
-    cfg.TRAINER.VPT.VPT_TYPE = "cocoopvpt"
-
-    cfg.DATASET.SUBSAMPLE_CLASSES = "all"  # all, base or new
+    cfg.TRAINER.VPT.VPT_TYPE = "coopvpt"
+    
+    # VPT_CoCoOp
+    cfg.TRAINER.VPT_COCOOP = CN()
+    cfg.TRAINER.VPT_COCOOP.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.VPT_COCOOP.L = 10  # number of monte carlo samples
+    cfg.TRAINER.VPT_COCOOP.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.VPT_COCOOP.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.VPT_COCOOP.VPT_TYPE = "cocoopvpt"
+    
+    # For all methods
+    cfg.DATASET.SUBSAMPLE_CLASSES = "base"
 
 
 def setup_cfg(args):

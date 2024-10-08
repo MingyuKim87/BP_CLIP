@@ -4,13 +4,13 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=VPT
+TRAINER=VPT_CoCoOp
 
 DATASET=$1
 SEED=$2
 GPU=$3
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch1_ctxv1
 SHOTS=$4
 CTX=$5
 
@@ -22,7 +22,7 @@ LOADEP=$7
 SUB=new
 
 
-COMMON_DIR=${DATASET}/shots_${SHOTS}_ctx_${CTX}_arch_${ARCH}/${TRAINER}_CoCoOp/${CFG}/seed${SEED}
+COMMON_DIR=${DATASET}/shots_${SHOTS}_ctx_${CTX}_arch_${ARCH}/${TRAINER}/${CFG}/seed${SEED}
 MODEL_DIR=output/base2new/train_base/${COMMON_DIR}
 DIR=output/base2new/test_${SUB}/${COMMON_DIR}
 if [ -d "$DIR" ]; then
@@ -33,7 +33,7 @@ else
     --seed ${SEED} \
     --trainer ${TRAINER} \
     --dataset-config-file configs/datasets/${DATASET}.yaml \
-    --config-file configs/trainers/${TRAINER}_CoCoOp/${CFG}.yaml \
+    --config-file configs/trainers/${TRAINER}/${CFG}.yaml \
     --output-dir ${DIR} \
     --model-dir ${MODEL_DIR} \
     --load-epoch ${LOADEP} \

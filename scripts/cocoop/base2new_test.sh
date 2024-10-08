@@ -35,7 +35,7 @@ else
     --eval-only \
     DATASET.NUM_SHOTS ${SHOTS} \
     DATASET.SUBSAMPLE_CLASSES ${SUB} \
-    OPTIM.MAX_EPOCH ${EPOCHS} \
+    OPTIM.MAX_EPOCH ${EPOCHS} 
 fi
 
 # extract accuracy and macro_f1 from log.txt

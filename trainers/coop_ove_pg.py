@@ -620,7 +620,7 @@ class CoOp_OVE_PG(TrainerX):
                     
                     # softmax by ove_pg / stabilize log probabilities
                     log_prob_ove_pg_sm = log_softmax_ove(new_logits)
-                    log_prob_ove_sm = torch.clamp(log_prob_ove_sm, min=self.eps)
+                    # log_prob_ove_pg_sm = torch.clamp(log_prob_ove_sm, min=self.eps)
                     
                     nll_loss = F.nll_loss(log_prob_ove_pg_sm, label)
                     
