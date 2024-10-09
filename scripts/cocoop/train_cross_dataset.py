@@ -8,5 +8,5 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", help="Number of training epochs")
     args = parser.parse_args()
 
-    for seed in [1, 2, 3]:
+    for seed in [1,]:
         os.system(f"bash xd_train.sh {seed} {args.epochs}")

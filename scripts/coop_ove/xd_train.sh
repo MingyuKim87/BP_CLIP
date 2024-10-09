@@ -10,7 +10,7 @@ DATASET=imagenet
 SEED=$1
 EPOCHS=$2
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch2_ctxv1
 SHOTS=16
 
 
@@ -26,5 +26,5 @@ else
     --config-file configs/trainers/${TRAINER}/${CFG}.yaml \
     --output-dir ${DIR} \
     DATASET.NUM_SHOTS ${SHOTS} \
-    OPTIM.MAX_EPOCH ${EPOCHS} \
+    OPTIM.MAX_EPOCH ${EPOCHS}
 fi

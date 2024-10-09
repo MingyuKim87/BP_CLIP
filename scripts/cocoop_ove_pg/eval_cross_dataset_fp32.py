@@ -9,5 +9,5 @@ if __name__ == "__main__":
     parser.add_argument("--dname", help="dataset name")
     args = parser.parse_args()
 
-    for seed in [1, 2, 3]:
+    for seed in [1,]:
         os.system(f"bash xd_test_fp32.sh {args.dname} {seed} {args.epochs} {args.gpuids}")

@@ -9,12 +9,13 @@ TRAINER=CoCoOp_OVE_PG
 DATASET=imagenet
 SEED=$1
 EPOCHS=$2
+LAMBDA1=$3
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch1_ctxv1
 SHOTS=16
 
 
-DIR=output/${DATASET}/epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED}
+DIR=output/${DATASET}/epochs_${EPOCHS}/${TRAINER}_${LAMBDA1}/${CFG}_${SHOTS}shots/seed${SEED}
 if [ -d "$DIR" ]; then
     echo "Oops! The results exist at ${DIR} (so skip this job)"
 else
@@ -27,4 +28,5 @@ else
     --output-dir ${DIR} \
     DATASET.NUM_SHOTS ${SHOTS} \
     OPTIM.MAX_EPOCH ${EPOCHS} \
+    TRAINER.COCOOP_OVE_PG.LAMBDA_1 ${LAMBDA1}
 fi

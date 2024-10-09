@@ -8,11 +8,11 @@ TRAINER=CoCoOp_OVE_PG
 
 DATASET=$1
 SEED=$2
-EPOCHS=$4
-LOADEP=$4
-GPUIDS=$5
+EPOCHS=$3
+LOADEP=$3
+GPUIDS=$4
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch1_ctxv1
 SHOTS=16
 
 
@@ -29,6 +29,6 @@ else
     --output-dir ${DIR} \
     --model-dir output/imagenet/epochs_${EPOCHS}/${TRAINER}/${CFG}_${SHOTS}shots/seed${SEED} \
     --load-epoch ${LOADEP} \
-    --eval-only \
-    OPTIM.MAX_EPOCH ${EPOCHS} \
+    --eval-only
+    OPTIM.MAX_EPOCH ${EPOCHS}
 fi

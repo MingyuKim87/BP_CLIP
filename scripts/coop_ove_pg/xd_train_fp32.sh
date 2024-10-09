@@ -10,7 +10,7 @@ DATASET=imagenet
 SEED=$1
 EPOCHS=$2
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
+CFG=vit_b16_c4_ep10_batch2_ctxv1_fp32
 SHOTS=16
 
 

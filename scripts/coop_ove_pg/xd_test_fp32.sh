@@ -8,11 +8,11 @@ TRAINER=CoOp_OVE_PG
 
 DATASET=$1
 SEED=$2
-EPOCHS=$4
-LOADEP=$4
-GPUIDS=$5
+EPOCHS=$3
+LOADEP=$3
+GPUIDS=$4
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
+CFG=vit_b16_c4_ep10_batch2_ctxv1_fp32
 SHOTS=16
 
 

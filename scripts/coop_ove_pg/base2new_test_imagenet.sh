@@ -11,7 +11,7 @@ SEED=$1
 GPUIDS=$2
 EPOCHS=$3
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch2_ctxv1
 SHOTS=16
 LOADEP=$4
 SUB=new
