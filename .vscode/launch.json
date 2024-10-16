@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "env" : {"CUDA_VISIBLE_DEVICES" : "0"},
+            "env" : {"CUDA_VISIBLE_DEVICES" : "1"},
             // Training for CoOp
             // "args" : [
             //     "--root=./data", 
@@ -104,18 +104,66 @@
             //     "DATASET.SUBSAMPLE_CLASSES", "base", 
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
-            // Training for CoOp on ImageNet
+            // Training for VAT_OVE
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=VPT_OVE",
+            //     "--dataset-config-file=configs/datasets/imagenet.yaml",
+            //     "--config-file=configs/trainers/VPT_OVE/vit_b16_c4_ep10_batch1_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_OVE/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
+            // Training for VAT_OVE_PG
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=VPT_OVE_PG",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/VPT_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10",
+            //     "TRAINER.VPT_OVE_PG.PREC", "fp32",  
+            // ]
+            // Training for VAT_CoCoOp_OVE
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=VPT_CoCoOp_OVE",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch2_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
             "args" : [
                 "--root=./data", 
                 "--seed=1",
-                "--trainer=CoOp",
-                "--dataset-config-file=configs/datasets/imagenet.yaml",
-                "--config-file=configs/trainers/CoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-                "--output-dir=output_temp/imagenet/epochs_5/CoOp/vit_b16_c4_ep10_batch4_ctxv1_16shots/seed1",
+                "--trainer=VPT_CoCoOp_OVE_PG",
+                "--dataset-config-file=configs/datasets/caltech101.yaml",
+                "--config-file=configs/trainers/VPT_CoCoOp_OVE_PG/vit_b16_c4_ep10_batch2_ctxv1.yaml",
+                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp_OVE_PG/vit_b16_c4_ep10_batch2_ctxv1/seed1",
                 "DATASET.NUM_SHOTS", "16",
                 "DATASET.SUBSAMPLE_CLASSES", "base", 
-                "OPTIM.MAX_EPOCH", "5" 
+                "OPTIM.MAX_EPOCH", "10" 
             ]
+            // Training for CoOp on ImageNet
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=CoOp",
+            //     "--dataset-config-file=configs/datasets/imagenet.yaml",
+            //     "--config-file=configs/trainers/CoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp/imagenet/epochs_5/CoOp/vit_b16_c4_ep10_batch4_ctxv1_16shots/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "5" 
+            // ]
             // Test for CoOp_OVE
             // "args" : [
             //     "--root=./data", 

@@ -33,4 +33,4 @@ TRAINER:
     N_CTX: 4
     CTX_INIT: "a photo of a"
     PREC: "fp16"
-    LAMBDA_1: 0.2
+    LAMBDA_1: 0.1

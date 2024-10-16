@@ -591,7 +591,7 @@ class CoCoOp_OVE_PG(TrainerX):
                         omega = omega.flatten()
                         
                         # for posterior f
-                        mu, Sigma = conditional_posterior_weights(logit, kappa_c, self.alpha, omega)
+                        mu, Sigma = conditional_posterior_weights_2(logit, kappa_c, self.alpha, omega)
                         
                         # sampling
                         logit_prime = gaussian_rsample(mu, Sigma)

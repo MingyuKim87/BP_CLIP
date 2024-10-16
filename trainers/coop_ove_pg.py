@@ -592,7 +592,7 @@ class CoOp_OVE_PG(TrainerX):
                         # parameters
                         logit = ove_logits[:, cls_idx]; learned_ove_logit = learned_ove_logits[:, cls_idx]
                         kappa_c = kappa[..., cls_idx]
-                        kappa_c = kappa_c.repeat(1, self.cls-1)
+                        kappa_c = kappa_c.repeat(1, self.n_cls-1)
                         
                         # gibbs sampling: polya-gamma posterior sample
                         with torch.no_grad():

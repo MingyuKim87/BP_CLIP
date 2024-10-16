@@ -9,8 +9,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--gpuids", type=int, default="0", help="GPU ids to train model on")
     parser.add_argument("--epochs", type=int, help="Number of training epochs")
+    parser.add_argument("--lambda1", type=float, default=0.2, help="Number of training epochs")
     args = parser.parse_args()
 
     for seed in [1, ]:
         for dataset in datasets:
-            os.system(f"bash xd_test.sh {dataset} {seed} {args.epochs} {args.gpuids}")
+            os.system(f"bash xd_test.sh {dataset} {seed} {args.epochs} {args.gpuids} {args.lambda1}")

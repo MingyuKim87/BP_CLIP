@@ -2,7 +2,7 @@ DATALOADER:
   TRAIN_X:
     BATCH_SIZE: 1
   TEST:
-    BATCH_SIZE: 256
+    BATCH_SIZE: 128
   NUM_WORKERS: 8
 
 INPUT:
@@ -33,6 +33,6 @@ TRAINER:
     N_CTX: 4
     CTX_INIT: "a photo of a"
     PREC: "fp16"
-    LAMBDA_1: 0.2
+    LAMBDA_1: 0.1
     ALPHA: 1.0
     M: 1

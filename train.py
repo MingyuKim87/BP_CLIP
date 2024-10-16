@@ -35,7 +35,13 @@ import trainers.cocoop_ove_pg
 
 # vpt
 import trainers.vpt
+import trainers.vpt_ove
+import trainers.vpt_ove_pg
+
+# vpt_cocoop
 import trainers.vpt_cocoop
+import trainers.vpt_cocoop_ove
+import trainers.vpt_cocoop_ove_pg
 
 # zeroclip
 import trainers.zsclip
@@ -156,6 +162,26 @@ def extend_cfg(cfg):
     cfg.TRAINER.VPT.CTX_INIT = ""  # initialization words
     cfg.TRAINER.VPT.PREC = "fp16"  # fp16, fp32, amp
     cfg.TRAINER.VPT.VPT_TYPE = "coopvpt"
+
+    # VPT_OVE
+    cfg.TRAINER.VPT_OVE = CN()
+    cfg.TRAINER.VPT_OVE.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.VPT_OVE.L = 10  # number of monte carlo samples
+    cfg.TRAINER.VPT_OVE.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.VPT_OVE.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.VPT_OVE.VPT_TYPE = "coopvpt"
+    cfg.TRAINER.VPT_OVE.LAMBDA_1 = 0.2  # weight for KD
+
+    # VPT_OVE_PG
+    cfg.TRAINER.VPT_OVE_PG = CN()
+    cfg.TRAINER.VPT_OVE_PG.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.VPT_OVE_PG.L = 10  # number of monte carlo samples
+    cfg.TRAINER.VPT_OVE_PG.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.VPT_OVE_PG.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.VPT_OVE_PG.VPT_TYPE = "coopvpt"
+    cfg.TRAINER.VPT_OVE_PG.LAMBDA_1 = 0.2  # weight for KD
+    cfg.TRAINER.VPT_OVE_PG.ALPHA = 1.0  # weight for KD
+    cfg.TRAINER.VPT_OVE_PG.M = 1  # the number of gibbs samples
     
     # VPT_CoCoOp
     cfg.TRAINER.VPT_COCOOP = CN()
@@ -164,6 +190,26 @@ def extend_cfg(cfg):
     cfg.TRAINER.VPT_COCOOP.CTX_INIT = ""  # initialization words
     cfg.TRAINER.VPT_COCOOP.PREC = "fp16"  # fp16, fp32, amp
     cfg.TRAINER.VPT_COCOOP.VPT_TYPE = "cocoopvpt"
+
+    # VPT_CoCoOp_OVE
+    cfg.TRAINER.VPT_COCOOP_OVE = CN()
+    cfg.TRAINER.VPT_COCOOP_OVE.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.VPT_COCOOP_OVE.L = 10  # number of monte carlo samples
+    cfg.TRAINER.VPT_COCOOP_OVE.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.VPT_COCOOP_OVE.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.VPT_COCOOP_OVE.VPT_TYPE = "cocoopvpt"
+    cfg.TRAINER.VPT_COCOOP_OVE.LAMBDA_1 = 0.1  # weight for KD
+
+    # VPT_CoCoOp_OVE_PG
+    cfg.TRAINER.VPT_COCOOP_OVE_PG = CN()
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.N_CTX = 16  # number of context vectors
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.L = 10  # number of monte carlo samples
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.CTX_INIT = ""  # initialization words
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.VPT_TYPE = "cocoopvpt"
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.LAMBDA_1 = 0.1  # weight for KD
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.ALPHA = 1.0  # weight for KD
+    cfg.TRAINER.VPT_COCOOP_OVE_PG.M = 1  # the number of gibbs samples
     
     # For all methods
     cfg.DATASET.SUBSAMPLE_CLASSES = "base"
