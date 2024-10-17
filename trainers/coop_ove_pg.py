@@ -575,29 +575,29 @@ class CoOp_OVE_PG(TrainerX):
             self.optim.zero_grad()
             for _ in range(self.M):
                 with autocast():
-                    pred = logit = self.model(image)
-                    learned_pred = self.freezed_model.model_inference(image) 
+                    pred = logit = self.model(image) # dim : n \times C
+                    learned_pred = self.freezed_model.model_inference(image) # dim : n \times C
                     
                     if pred.dtype == torch.float32:
                         learned_pred = learned_pred.float()
                     
-                    # ove logit
-                    ove_logits = ove_logit(pred, self.batch_A)
-                    learned_ove_logits = ove_logit(learned_pred, self.batch_A)
+                    # ove logit : (literally, n \times C-1 because the class row corresponds to 0 vector, it can be neglected.)
+                    ove_logits = ove_logit(pred, self.batch_A) # dim : n \times C \times C
+                    learned_ove_logits = ove_logit(learned_pred, self.batch_A) # dim : n \times C \times C
                     
                     # new logits
                     new_logits = []
                     
                     for cls_idx in range(self.n_cls):
                         # parameters
-                        logit = ove_logits[:, cls_idx]; learned_ove_logit = learned_ove_logits[:, cls_idx]
-                        kappa_c = kappa[..., cls_idx]
-                        kappa_c = kappa_c.repeat(1, self.n_cls-1)
+                        logit = ove_logits[:, cls_idx]; learned_ove_logit = learned_ove_logits[:, cls_idx] # dim : n \times C 
+                        kappa_c = kappa[..., cls_idx] # dim : n \times 1 
+                        kappa_c = kappa_c.repeat(1, self.n_cls-1) # dim : n \times C (literally, n \times C-1 because the class row corresponds to 0 vector, it can be neglected.)
                         
                         # gibbs sampling: polya-gamma posterior sample
                         with torch.no_grad():
-                            b, c = conditional_posterior_auxiliary(learned_ove_logit)
-                            omega = polya_gamma_mean(b, c, pg=pg)
+                            b, c = conditional_posterior_auxiliary(learned_ove_logit) # dim : n \times C
+                            omega = polya_gamma_mean(b, c, pg=pg) # dim : n \times C
                             
                         # reshape
                         shape = logit.shape
@@ -606,20 +606,20 @@ class CoOp_OVE_PG(TrainerX):
                         omega = omega.flatten()
                         
                         # for posterior f
-                        mu, Sigma = conditional_posterior_weights(logit, kappa_c, self.alpha, omega)
+                        mu, Sigma = conditional_posterior_weights(logit, kappa_c, self.alpha, omega) # dim : n \times C
                         
                         # sampling
-                        logit_prime = gaussian_rsample(mu, Sigma)
+                        logit_prime = gaussian_rsample(mu, Sigma) # dim : n \times C
                         
                         # reshape
                         logit_prime = logit_prime.reshape(shape)
                         new_logits.append(logit_prime)
                         
                     # update
-                    new_logits = torch.stack(new_logits, dim=-1).transpose(1, 2)
+                    new_logits = torch.stack(new_logits, dim=-1).transpose(1, 2) # dim : n \times C \times C
                     
                     # softmax by ove_pg / stabilize log probabilities
-                    log_prob_ove_pg_sm = log_softmax_ove(new_logits)
+                    log_prob_ove_pg_sm = log_softmax_ove(new_logits) # dim : n \times C 
                     # log_prob_ove_pg_sm = torch.clamp(log_prob_ove_sm, min=self.eps)
                     
                     nll_loss = F.nll_loss(log_prob_ove_pg_sm, label)
@@ -650,30 +650,30 @@ class CoOp_OVE_PG(TrainerX):
             # zero_grad
             self.model_zero_grad(None)
             
-            for _ in range(self.M):
-                pred = logits = self.model(image)
-                learned_pred = self.freezed_model.model_inference(image) 
+            for _ in range(self.M): 
+                pred = logits = self.model(image) # dim : n \times C
+                learned_pred = self.freezed_model.model_inference(image) # dim : n \times C
                 
                 if pred.dtype == torch.float32:
                     learned_pred = learned_pred.float()
                 
-                # ove logit
-                ove_logits = ove_logit(pred, self.batch_A)
-                learned_ove_logits = ove_logit(learned_pred, self.batch_A)
+                # ove logit : (literally, n \times C-1 because the class row corresponds to 0 vector, it can be neglected.)
+                ove_logits = ove_logit(pred, self.batch_A) # dim : n \times C \times C
+                learned_ove_logits = ove_logit(learned_pred, self.batch_A) # dim : n \times C \times C
                 
                 # new logits
                 new_logits = []
                 
                 for cls_idx in range(self.n_cls):
                     # parameters
-                    logit = ove_logits[:, cls_idx]; learned_ove_logit = learned_ove_logits[:, cls_idx]
-                    kappa_c = kappa[..., cls_idx]
-                    kappa_c = kappa_c.repeat(1, self.n_cls-1)
+                    logit = ove_logits[:, cls_idx]; learned_ove_logit = learned_ove_logits[:, cls_idx] # dim : n \times C 
+                    kappa_c = kappa[..., cls_idx] # dim : n \times 1 
+                    kappa_c = kappa_c.repeat(1, self.n_cls-1) # dim : n \times C (literally, n \times C-1 because the class row corresponds to 0 vector, it can be neglected.)
                     
                     # gibbs sampling: polya-gamma posterior sample
                     with torch.no_grad():
-                        b, c = conditional_posterior_auxiliary(learned_ove_logit)
-                        omega = polya_gamma_mean(b, c, pg=pg)
+                        b, c = conditional_posterior_auxiliary(learned_ove_logit) # dim : n \times C
+                        omega = polya_gamma_mean(b, c, pg=pg) # dim : n \times C
                         # omega_2 = polya_gamma_sample(b, c, pg=pg)
                         
                     # reshape
@@ -684,10 +684,10 @@ class CoOp_OVE_PG(TrainerX):
                     
                     # for posterior f
                     # mu, Sigma = conditional_posterior_weights(logit, kappa_c, self.alpha, omega)
-                    mu, Sigma = conditional_posterior_weights_2(logit, kappa_c, self.alpha, omega)
+                    mu, Sigma = conditional_posterior_weights_2(logit, kappa_c, self.alpha, omega) # dim : n \times C
                     
                     # sampling
-                    logit_prime = gaussian_rsample(mu, Sigma)
+                    logit_prime = gaussian_rsample(mu, Sigma) # dim : n \times C
                     
                     # reshape
                     logit_prime = logit_prime.reshape(shape)
@@ -695,10 +695,10 @@ class CoOp_OVE_PG(TrainerX):
                 
                 # update
                 new_logits = torch.stack(new_logits, dim=-1)
-                new_logits = new_logits.transpose(1, 2)
+                new_logits = new_logits.transpose(1, 2) # dim : n \times C \times C
                 
                 # softmax by ove_pg / stabilize log probabilities
-                log_prob_ove_pg_sm = log_softmax_ove(new_logits)
+                log_prob_ove_pg_sm = log_softmax_ove(new_logits) # dim : n \times C 
                 nll_loss = F.nll_loss(log_prob_ove_pg_sm, label)
                 
                 # regularization
