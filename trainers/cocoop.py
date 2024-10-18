@@ -220,6 +220,10 @@ class CoCoOp(TrainerX):
             if name_to_update not in name:
                 param.requires_grad_(False)
         
+        # Count the number of parameters where requires_grad is True
+        trainable_params_count = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+        print(f"Number of trainable parameters (CoCoOp): {trainable_params_count}")
+        
         # Double check
         enabled = set()
         for name, param in self.model.named_parameters():

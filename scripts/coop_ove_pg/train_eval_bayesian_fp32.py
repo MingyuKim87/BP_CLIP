@@ -12,9 +12,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "--epochs", help="Number of training epochs", default=10
     )
+    parser.add_argument(
+        "--lambda_1", type=float, help="Weight of KLD", default=0.2
+    )
     args = parser.parse_args()
     
     for seed in [1, 2, 3]:
         for dataset in datasets:
-            os.system(f"bash base2new_train_fp32.sh {dataset} {seed} {args.gpuids} {args.epochs}")
-            os.system(f"bash base2new_test_fp32.sh {dataset} {seed} {args.gpuids} {args.epochs}")
+            os.system(f"bash base2new_train_fp32.sh {dataset} {seed} {args.gpuids} {args.epochs} {args.lambda_1}")
+            os.system(f"bash base2new_test_fp32.sh {dataset} {seed} {args.gpuids} {args.epochs} {args.lambda_1}")

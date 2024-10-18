@@ -50,9 +50,9 @@ def ove_softmax(f, A, axis):
 
     # 로그 공간에서 연산
     logits = torch.einsum("nk,jhk->njh", f, A)
-    log_sigmoid = -F.softplus(-logits)  # log(sigmoid(x)) 계산
-    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  # 로그 값들의 합
-    result = torch.exp(sum_log_sigmoid)  # 지수 함수 적용하여 원래 공간으로 변환
+    log_sigmoid = -F.softplus(-logits)  
+    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  
+    result = torch.exp(sum_log_sigmoid)  
     return result
 
 def ove_log_softmax(f, A, axis):
@@ -60,10 +60,9 @@ def ove_log_softmax(f, A, axis):
     assert f.ndim == 2
     assert axis == -1
 
-    # 로그 공간에서 연산
     logits = torch.einsum("nk,jhk->njh", f, A)
-    log_sigmoid = -F.softplus(-logits)  # log(sigmoid(x)) 계산
-    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  # 로그 값들의 합
+    log_sigmoid = -F.softplus(-logits)  
+    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  
     result = sum_log_sigmoid
     return result
 

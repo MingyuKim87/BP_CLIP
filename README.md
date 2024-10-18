@@ -1,11 +1,10 @@
 
-# Bayesian Prompt Learning for Image-Language Model Generalization
-![Variational Prompt Learning](assets/vpt.png "VPT")
+# Bayesian Principles Improve Prompt Learning In VLMs
 
-This repo contains the codebase of the ICCV'23 paper [Bayesian Prompt Learning for Image-Language Model Generalization](https://arxiv.org/abs/2210.02390). 
+This repo contains the codebase of CLIP experiments.
 
 ## How to Install
-This code is built on top of the awesome toolbox [Dassl.pytorch](https://github.com/KaiyangZhou/Dassl.pytorch) so you need to install the `dassl` environment first. Simply follow the instructions described [here](https://github.com/KaiyangZhou/Dassl.pytorch#installation) to install `dassl` as well as PyTorch. After that, run `pip install -r requirements.txt` under `VPT/` to install a few more packages required by [CLIP](https://github.com/openai/CLIP) (this should be done when `dassl` is activated). Then, you are ready to go.
+This code is built on top of the awesome toolbox [Dassl.pytorch](https://github.com/KaiyangZhou/Dassl.pytorch) so you need to install the `dassl` environment first. Simply follow the instructions described [here](https://github.com/KaiyangZhou/Dassl.pytorch#installation) to install `dassl` as well as PyTorch. After that, run `pip install -r requirements.txt` to install a few more packages required by [CLIP](https://github.com/openai/CLIP) (this should be done when `dassl` is activated).
 
 ## Dataset Preparation
 
@@ -17,20 +16,4 @@ In this paper, we follow [DATASETS.md](DATASETS.md) to install the datasets. The
 
 Click a paper below to see the detailed instructions on how to run the code to reproduce the results.
 
-* [Bayesian Prompt Learning for Image-Language Model Generalization](VPT.md)
-
-## Results
-
-The raw numerical results can be found at this [google drive link](https://docs.google.com/spreadsheets/d/e/2PACX-1vSI_8GjWG7gbu_SjqVYfipeDP2ytVaSQqkINU1yEdgFB8gF27FwLXn2E_6c9N7hNWb-o2oB617vifh5/pubhtml).
-
-## Citation
-If you use this code in your research, please kindly cite the following papers
-
-```
-@article{derakhshani2023variational,
-  title={Bayesian Prompt Learning for Image-Language Model Generalization},
-  author={Derakhshani, Mohammad Mahdi and Sanchez, Enrique and Bulat, Adrian and da Costa, Victor Guilherme Turrisi and Snoek, Cees GM and Tzimiropoulos, Georgios and Martinez, Brais},
-  journal={ICCV},
-  year={2023}
-}
-```
+* [Bayesian Principles Improve Prompt Learning In VLMs](BP_CLIP.md)

@@ -86,24 +86,24 @@
             //     "--seed=1",
             //     "--trainer=VPT",
             //     "--dataset-config-file=configs/datasets/caltech101.yaml",
-            //     "--config-file=configs/trainers/VPT_CoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "--config-file=configs/trainers/VPT/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT/vit_b16_c4_ep10_batch4_ctxv1/seed1",
             //     "DATASET.NUM_SHOTS", "16",
             //     "DATASET.SUBSAMPLE_CLASSES", "base", 
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
             // Training for VAT_CoCoOp
-            // "args" : [
-            //     "--root=./data", 
-            //     "--seed=1",
-            //     "--trainer=VPT_CoCoOp",
-            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
-            //     "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
-            //     "DATASET.NUM_SHOTS", "16",
-            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
-            //     "OPTIM.MAX_EPOCH", "10" 
-            // ]
+            "args" : [
+                "--root=./data", 
+                "--seed=1",
+                "--trainer=VPT_CoCoOp",
+                "--dataset-config-file=configs/datasets/caltech101.yaml",
+                "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+                "DATASET.NUM_SHOTS", "16",
+                "DATASET.SUBSAMPLE_CLASSES", "base", 
+                "OPTIM.MAX_EPOCH", "10" 
+            ]
             // Training for VAT_OVE
             // "args" : [
             //     "--root=./data", 
@@ -141,17 +141,17 @@
             //     "DATASET.SUBSAMPLE_CLASSES", "base", 
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
-            "args" : [
-                "--root=./data", 
-                "--seed=1",
-                "--trainer=VPT_CoCoOp_OVE_PG",
-                "--dataset-config-file=configs/datasets/caltech101.yaml",
-                "--config-file=configs/trainers/VPT_CoCoOp_OVE_PG/vit_b16_c4_ep10_batch2_ctxv1.yaml",
-                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp_OVE_PG/vit_b16_c4_ep10_batch2_ctxv1/seed1",
-                "DATASET.NUM_SHOTS", "16",
-                "DATASET.SUBSAMPLE_CLASSES", "base", 
-                "OPTIM.MAX_EPOCH", "10" 
-            ]
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=VPT_CoCoOp_OVE_PG",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/VPT_CoCoOp_OVE_PG/vit_b16_c4_ep10_batch2_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp_OVE_PG/vit_b16_c4_ep10_batch2_ctxv1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
             // Training for CoOp on ImageNet
             // "args" : [
             //     "--root=./data", 

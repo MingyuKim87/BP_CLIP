@@ -237,6 +237,10 @@ class CoOp(TrainerX):
         for name, param in self.model.named_parameters():
             if "prompt_learner" not in name:
                 param.requires_grad_(False)
+                
+        # Count the number of parameters where requires_grad is True
+        trainable_params_count = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+        print(f"Number of trainable parameters (CoOp): {trainable_params_count}")
 
         if cfg.MODEL.INIT_WEIGHTS:
             load_pretrained_weights(self.model.prompt_learner, cfg.MODEL.INIT_WEIGHTS)

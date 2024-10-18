@@ -251,8 +251,6 @@ class CustomCLIP(nn.Module):
         tokenized_prompts = torch.tile(tokenized_prompts, (self.L, 1))
         logit_scale = self.logit_scale.exp()
 
-        # pdb.set_trace()
-
         image_features = self.image_encoder(image.type(self.dtype))  # 1 x 512
         image_features = image_features / image_features.norm(dim=-1, keepdim=True)
 
@@ -336,6 +334,10 @@ class VPT(TrainerX):
             if name_to_update not in name:
                 param.requires_grad_(False)
 
+        # Count the number of parameters where requires_grad is True
+        trainable_params_count = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+        print(f"Number of trainable parameters (VPT_CoOp): {trainable_params_count}")
+        
         # Double check
         enabled = set()
         for name, param in self.model.named_parameters():

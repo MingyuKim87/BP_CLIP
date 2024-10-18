@@ -82,14 +82,14 @@ def ove_logit(f, A):
     return logits
 
 def softmax_ove(logits):
-    log_sigmoid = -F.softplus(-logits)  # log(sigmoid(x)) 계산
-    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  # 로그 값들의 합
-    result = torch.exp(sum_log_sigmoid)  # 지수 함수 적용하여 원래 공간으로 변환
+    log_sigmoid = -F.softplus(-logits)  
+    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  
+    result = torch.exp(sum_log_sigmoid)  
     return result
 
 def log_softmax_ove(logits):
-    log_sigmoid = -F.softplus(-logits)  # log(sigmoid(x)) 계산
-    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  # 로그 값들의 합
+    log_sigmoid = -F.softplus(-logits)  
+    sum_log_sigmoid = log_sigmoid.sum(dim=-1)  
     result = sum_log_sigmoid
     return result
 
