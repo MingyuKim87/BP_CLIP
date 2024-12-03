@@ -4,7 +4,7 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=CoOp_OVE_PG
+TRAINER=MaPLe
 
 DATASET=$1
 SEED=$2
@@ -15,10 +15,9 @@ CFG=vit_b16_c4_ep10_batch4_ctxv1
 SHOTS=16
 LOADEP=$4
 SUB=new
-LAMBDA1=$5
 
 
-COMMON_DIR=${DATASET}/epochs_${EPOCHS}/shots_${SHOTS}/${TRAINER}_${LAMBDA1}/${CFG}/seed${SEED}
+COMMON_DIR=${DATASET}/epochs_${EPOCHS}/shots_${SHOTS}/${TRAINER}/${CFG}/seed${SEED}
 MODEL_DIR=output/base2new/train_base/${COMMON_DIR}
 DIR=output/base2new/test_${SUB}/${COMMON_DIR}
 if [ -d "$DIR" ]; then

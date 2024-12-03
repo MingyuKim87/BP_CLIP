@@ -4,14 +4,14 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=CoOp_OVE_PG
+TRAINER=APEX_OVE_PG
 
 DATASET=$1
 SEED=$2
 GPUIDS=$3
 EPOCHS=$4
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch4+2ctx_vision_1
 SHOTS=16
 LOADEP=$4
 SUB=new

@@ -4,7 +4,7 @@ cd ../..
 
 # custom config
 DATA=./data
-TRAINER=CoOp_OVE_PG
+TRAINER=MaPLe_OVE_PG
 
 DATASET=$1
 SEED=$2
@@ -15,6 +15,7 @@ CFG=vit_b16_c4_ep10_batch4_ctxv1
 SHOTS=16
 LOADEP=$4
 SUB=new
+
 LAMBDA1=$5
 
 

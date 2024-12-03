@@ -43,6 +43,14 @@ import trainers.vpt_cocoop
 import trainers.vpt_cocoop_ove
 import trainers.vpt_cocoop_ove_pg
 
+# apex
+import trainers.apex
+import trainers.apex_ove_pg
+
+# maple
+import trainers.maple
+import trainers.maple_ove_pg
+
 # zeroclip
 import trainers.zsclip
 
@@ -210,6 +218,46 @@ def extend_cfg(cfg):
     cfg.TRAINER.VPT_COCOOP_OVE_PG.LAMBDA_1 = 0.1  # weight for KD
     cfg.TRAINER.VPT_COCOOP_OVE_PG.ALPHA = 1.0  # weight for KD
     cfg.TRAINER.VPT_COCOOP_OVE_PG.M = 1  # the number of gibbs samples
+    
+    # Config for APeX
+    cfg.TRAINER.APEX = CN()
+    cfg.TRAINER.APEX.N_CTX_VISION = 2  # number of context vectors at the vision branch
+    cfg.TRAINER.APEX.N_CTX_TEXT = 2  # number of context vectors at the language branch
+    cfg.TRAINER.APEX.CTX_INIT = "a photo of a #."  # initialization words (only for language prompts)
+    cfg.TRAINER.APEX.PREC = "fp16"  # fp16, fp32, amp
+    # If both variables below are set to 0, 0, will the config will degenerate to COOP model
+    cfg.TRAINER.APEX.PROMPT_DEPTH_VISION = 12 # Max 12, minimum 0, for 0 it will act as shallow MaPLe (J=1)
+    cfg.TRAINER.APEX.PROMPT_DEPTH_TEXT = 1  # Max 12, minimum 0, for 0 it will act as shallow MaPLe (J=1)
+    
+    # Config for APeX_OVE_PG
+    cfg.TRAINER.APEX_OVE_PG = CN()
+    cfg.TRAINER.APEX_OVE_PG.N_CTX_VISION = 2  # number of context vectors at the vision branch
+    cfg.TRAINER.APEX_OVE_PG.N_CTX_TEXT = 2  # number of context vectors at the language branch
+    cfg.TRAINER.APEX_OVE_PG.LAMBDA_1 = 0.0  # weight for KD
+    cfg.TRAINER.APEX_OVE_PG.ALPHA = 1000.0  # precision for logit prior
+    cfg.TRAINER.APEX_OVE_PG.M = 1           # the number of gibbs samples
+    cfg.TRAINER.APEX_OVE_PG.CTX_INIT = "a photo of a #."  # initialization words (only for language prompts)
+    cfg.TRAINER.APEX_OVE_PG.PREC = "fp16"  # fp16, fp32, amp
+    # If both variables below are set to 0, 0, will the config will degenerate to COOP model
+    cfg.TRAINER.APEX_OVE_PG.PROMPT_DEPTH_VISION = 12 # Max 12, minimum 0, for 0 it will act as shallow MaPLe (J=1)
+    cfg.TRAINER.APEX_OVE_PG.PROMPT_DEPTH_TEXT = 1  # Max 12, minimum 0, for 0 it will act as shallow MaPLe (J=1)
+    
+    # Config for MaPLe
+    cfg.TRAINER.MAPLE = CN()
+    cfg.TRAINER.MAPLE.N_CTX = 2  # number of context vectors
+    cfg.TRAINER.MAPLE.CTX_INIT = "a photo of a"  # initialization words
+    cfg.TRAINER.MAPLE.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.MAPLE.PROMPT_DEPTH = 9 # Max 12, minimum 0, for 1 it will act as shallow MaPLe (J=1)
+    
+    # Config for MaPLe_OVE_PG
+    cfg.TRAINER.MAPLE_OVE_PG = CN()
+    cfg.TRAINER.MAPLE_OVE_PG.N_CTX = 2  # number of context vectors
+    cfg.TRAINER.MAPLE_OVE_PG.CTX_INIT = "a photo of a"  # initialization words
+    cfg.TRAINER.MAPLE_OVE_PG.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.MAPLE_OVE_PG.PROMPT_DEPTH = 9 # Max 12, minimum 0, for 1 it will act as shallow MaPLe (J=1)
+    cfg.TRAINER.MAPLE_OVE_PG.LAMBDA_1 = 0.0  # weight for KD
+    cfg.TRAINER.MAPLE_OVE_PG.ALPHA = 1000.0  # precision for logit prior
+    cfg.TRAINER.MAPLE_OVE_PG.M = 1           # the number of gibbs samples
     
     # For all methods
     cfg.DATASET.SUBSAMPLE_CLASSES = "base"

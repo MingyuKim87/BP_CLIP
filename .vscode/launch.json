@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "env" : {"CUDA_VISIBLE_DEVICES" : "1"},
+            "env" : {"CUDA_VISIBLE_DEVICES" : "3"},
             // Training for CoOp
             // "args" : [
             //     "--root=./data", 
@@ -93,17 +93,17 @@
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
             // Training for VAT_CoCoOp
-            "args" : [
-                "--root=./data", 
-                "--seed=1",
-                "--trainer=VPT_CoCoOp",
-                "--dataset-config-file=configs/datasets/caltech101.yaml",
-                "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
-                "DATASET.NUM_SHOTS", "16",
-                "DATASET.SUBSAMPLE_CLASSES", "base", 
-                "OPTIM.MAX_EPOCH", "10" 
-            ]
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=VPT_CoCoOp",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/VPT_CoCoOp/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
             // Training for VAT_OVE
             // "args" : [
             //     "--root=./data", 
@@ -141,6 +141,54 @@
             //     "DATASET.SUBSAMPLE_CLASSES", "base", 
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
+            // Training for APEX
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=APEX",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/APEX/vit_b16_c4_ep10_batch4+2ctx.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/APEX/vit_b16_c4_ep10_batch4+2ctx/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
+            // Training for APEX_OVE_PG
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=APEX_OVE_PG",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/APEX_OVE_PG/vit_b16_c4_ep10_batch4+2ctx.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/APEX_OVE_PG/vit_b16_c4_ep10_batch4+2ctx/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
+            // Training for MAPLE
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=MaPLe",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/MaPLe/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/MaPLe/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
+            // Training for MAPLE_OVE_PG
+            "args" : [
+                "--root=./data", 
+                "--seed=1",
+                "--trainer=MaPLe_OVE_PG",
+                "--dataset-config-file=configs/datasets/caltech101.yaml",
+                "--config-file=configs/trainers/MaPLe_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32.yaml",
+                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/MaPLe_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32/seed1",
+                "DATASET.NUM_SHOTS", "16",
+                "DATASET.SUBSAMPLE_CLASSES", "base", 
+                "OPTIM.MAX_EPOCH", "10" 
+            ]
             // "args" : [
             //     "--root=./data", 
             //     "--seed=1",
