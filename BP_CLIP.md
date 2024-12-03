@@ -1,6 +1,6 @@
 ## How to Run
 
-The running scripts are provided in `scripts/coop_ove_pg/` and `scripts/cocoop_ove_pg/`. Make sure you change the path in `DATA` and run the commands under `scripts/coop_ove_pg/` or `scripts/cocoop_ove_pg/`.
+The running scripts are provided in `scripts/coop_ove_pg/`, `scripts/cocoop_ove_pg/`, `scripts/maple_ove_pg/` and `scripts/apex_ove_pg/` . Make sure you change the path in `DATA` and run the commands under `scripts/coop_ove_pg/`, `scripts/cocoop_ove_pg/`, `scripts/maple_ove_pg/` or `scripts/apex_ove_pg/`.
 
 ### Generalization From Base to New Classes
 
