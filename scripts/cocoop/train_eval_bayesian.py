@@ -5,6 +5,7 @@ import argparse
 datasets = ["fgvc_aircraft", "eurosat", "ucf101", "stanford_cars", "oxford_flowers"]
 datasets_2 = ["dtd"]
 datasets_3 = ["caltech101", "food101", "oxford_pets", "sun397", "ucf101"]
+datasets_250305 = ["caltech101", "food101", "oxford_pets", "sun397", "ucf101"]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -15,6 +16,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     for seed in [1, 2, 3]:
-        for dataset in datasets_2:
+        for dataset in datasets_250305:
             os.system(f"bash base2new_train.sh {dataset} {seed} {args.gpuids} {args.epochs}")
             os.system(f"bash base2new_test.sh {dataset} {seed} {args.gpuids} {args.epochs}")

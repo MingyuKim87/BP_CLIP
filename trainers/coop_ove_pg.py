@@ -6,6 +6,7 @@ import torch.nn as nn
 from torch.nn import functional as F
 from torch.cuda.amp import GradScaler, autocast
 
+from tqdm import tqdm
 from dassl.engine import TRAINER_REGISTRY, TrainerX
 from dassl.metrics import compute_accuracy
 from dassl.utils import load_pretrained_weights, load_checkpoint
@@ -413,6 +414,11 @@ class CustomCLIP(nn.Module):
         logits = logit_scale * image_features @ text_features.t()
 
         return logits
+    
+    def get_features(self, image):
+        image_features = self.image_encoder(image.type(self.dtype))
+        image_features = image_features / image_features.norm(dim=-1, keepdim=True)
+        return image_features
 
 #################
 # ZEROSHOT CLIP #
@@ -777,3 +783,85 @@ class CoOp_OVE_PG(TrainerX):
             print("Loading weights to {} " 'from "{}" (epoch = {})'.format(name, model_path, epoch))
             # set strict=False
             self._models[name].load_state_dict(state_dict, strict=False)
+
+    @torch.no_grad()
+    def inter_intra_distance(self, split=None):
+        """A inter/intra distance pipeline."""
+        self.set_model_mode("eval")
+        self.evaluator.reset()
+
+        if split is None:
+            split = self.cfg.TEST.SPLIT
+
+        if split == "val" and self.val_loader is not None:
+            data_loader = self.val_loader
+        else:
+            split = "test"  # in case val_loader is None
+            data_loader = self.test_loader
+
+        print(f"Evaluate on the *{split}* set")
+        
+        num_classes = self.n_cls
+        class_dict = {cls: [] for cls in range(num_classes)}
+
+        for batch_idx, batch in enumerate(tqdm(data_loader)):
+            input, label = self.parse_batch_test(batch)
+            image_features = self.model.get_image_features(input)
+            
+            for i, (im_feature, lb) in enumerate(zip(image_features, label)):
+                class_dict[lb.item()].append(im_feature)
+            
+        # Convert lists in class_dict to tensors for easier manipulation
+        for cls in class_dict:
+            class_dict[cls] = torch.stack(class_dict[cls])  # Stack feature tensors
+
+        # Calculate intra-class and inter-class distances
+        intra_similarity = {}
+        inter_similarity = []
+
+        # Average intra-class similarity across classes
+        total_similarity = 0
+        total_pairs = 0
+        
+        # Intra-class distances
+        for cls, features in class_dict.items():
+            if len(features) > 1:  # Skip if only one sample in the class
+                # Compute pairwise cosine similarity
+                cosine_similarity_matrix = torch.mm(features, features.T)
+                
+                # Exclude the diagonal (self-similarity)
+                mask = torch.eye(cosine_similarity_matrix.size(0), device=cosine_similarity_matrix.device).bool()
+                cosine_similarity_matrix = cosine_similarity_matrix.masked_fill(mask, 0)
+        
+                # Sum
+                num_pairs = cosine_similarity_matrix.numel() - cosine_similarity_matrix.size(0)
+                class_similarity_sum = cosine_similarity_matrix.sum().item()
+                
+                # result
+                intra_similarity[cls] = cosine_similarity_matrix.mean().item()
+                total_similarity += class_similarity_sum # for total average
+                total_pairs += num_pairs # for total average
+
+        # Inter-class distances
+        class_means = {cls: features.mean(dim=0) for cls, features in class_dict.items()}
+
+        for cls1, mean1 in class_means.items():
+            for cls2, mean2 in class_means.items():
+                if cls1 < cls2:  # Avoid double-counting
+                    # Compute cosine similarity
+                    similarity = torch.dot(mean1, mean2).item()
+                    inter_similarity.append(similarity)
+
+        # Aggregate intra-class distance
+        avg_intra_similarity = total_similarity / total_pairs if total_pairs > 0 else 0
+        
+        # Aggregate inter-class distance
+        avg_inter_similarity = sum(inter_similarity) / len(inter_similarity) if inter_similarity else 0
+
+        # Print results
+        print(f"Intra-class distances (average per class): {intra_similarity}")
+        print(f"Intra-class distances (total average): {avg_intra_similarity}")
+        print(f"Inter-class distance: {inter_similarity}")
+        print(f"Average inter-class distance (total average): {avg_inter_similarity}")
+        
+        return None

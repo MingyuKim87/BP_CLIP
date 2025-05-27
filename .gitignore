@@ -8,6 +8,7 @@ __pycache__/
 *analysis*
 output/
 output_temp/
+output_temp_2/
 
 # C extensions
 *.so

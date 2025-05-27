@@ -178,17 +178,17 @@
             //     "OPTIM.MAX_EPOCH", "10" 
             // ]
             // Training for MAPLE_OVE_PG
-            "args" : [
-                "--root=./data", 
-                "--seed=1",
-                "--trainer=MaPLe_OVE_PG",
-                "--dataset-config-file=configs/datasets/caltech101.yaml",
-                "--config-file=configs/trainers/MaPLe_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32.yaml",
-                "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/MaPLe_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32/seed1",
-                "DATASET.NUM_SHOTS", "16",
-                "DATASET.SUBSAMPLE_CLASSES", "base", 
-                "OPTIM.MAX_EPOCH", "10" 
-            ]
+            // "args" : [
+            //     "--root=./data", 
+            //     "--seed=1",
+            //     "--trainer=MaPLe_OVE_PG",
+            //     "--dataset-config-file=configs/datasets/caltech101.yaml",
+            //     "--config-file=configs/trainers/MaPLe_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32.yaml",
+            //     "--output-dir=output_temp/base2new/train_base/caltech101/shots_16/MaPLe_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32/seed1",
+            //     "DATASET.NUM_SHOTS", "16",
+            //     "DATASET.SUBSAMPLE_CLASSES", "base", 
+            //     "OPTIM.MAX_EPOCH", "10" 
+            // ]
             // "args" : [
             //     "--root=./data", 
             //     "--seed=1",
@@ -212,21 +212,37 @@
             //     "DATASET.SUBSAMPLE_CLASSES", "base", 
             //     "OPTIM.MAX_EPOCH", "5" 
             // ]
-            // Test for CoOp_OVE
+            // Test for CoOp_OVE_PG
+            "args" : [
+                "--root=./data", 
+                "--seed=2",
+                "--trainer=CoOp_OVE_PG",
+                "--dataset-config-file=configs/datasets/eurosat.yaml",
+                "--config-file=configs/trainers/CoOp_OVE_PG/vit_b16_c4_ep10_batch4_ctxv1_fp32.yaml",
+                "--output-dir=output_temp_2/base2new/test_new/eurosat/epochs_10/shots_16/CoOp_OVE_PG_fp32/vit_b16_c4_ep10_batch4_ctxv1_fp32/seed2",
+                "--model-dir=output/base2new/train_base/eurosat/epochs_10/shots_16/CoOp_OVE_PG_fp32/vit_b16_c4_ep10_batch4_ctxv1_fp32/seed2",
+                "--load-epoch=10",
+                "--eval-only",
+                "DATASET.NUM_SHOTS", "16",
+                "DATASET.SUBSAMPLE_CLASSES", "new", 
+                "OPTIM.MAX_EPOCH", "10",
+            ],
+            // Test for CoOp
             // "args" : [
             //     "--root=./data", 
-            //     "--seed=1",
-            //     "--trainer=CoOp_OVE",
+            //     "--seed=2",
+            //     "--trainer=CoOp",
             //     "--dataset-config-file=configs/datasets/eurosat.yaml",
-            //     "--config-file=configs/trainers/CoOp_OVE/vit_b16_c4_ep10_batch4_ctxv1.yaml",
-            //     "--output-dir=output_temp/base2new/test_new/eurosat/epochs_10/shots_16/CoOp_OVE/vit_b16_c4_ep10_batch4_ctxv1/seed1",
-            //     "--model-dir=output/base2new/train_base/eurosat/epochs_10/shots_16/CoOp_OVE/vit_b16_c4_ep10_batch4_ctxv1/seed1",
+            //     "--config-file=configs/trainers/CoOp/vit_b16_c4_ep10_batch4_ctxv1.yaml",
+            //     "--output-dir=output_temp_2/base2new/test_new/eurosat/epochs_10/shots_16/CoOp/vit_b16_c4_ep10_batch4_ctxv1/seed2",
+            //     "--model-dir=output/base2new/train_base/eurosat/epochs_10/shots_16/CoOp/vit_b16_c4_ep10_batch4_ctxv1/seed2",
             //     "--load-epoch=10",
             //     "--eval-only",
             //     "DATASET.NUM_SHOTS", "16",
             //     "DATASET.SUBSAMPLE_CLASSES", "new", 
             //     "OPTIM.MAX_EPOCH", "10",
             // ],
+            
             // Test for CoCpOp
             // "args" : [
             //     "--root=./data", 
