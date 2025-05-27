@@ -13,7 +13,7 @@ LOADEP=$3
 GPUIDS=$4
 LAMBDA1=$5
 
-CFG=vit_b16_c4_ep10_batch1_ctxv1
+CFG=vit_b16_c4_ep10_batch1_ctxv1_fp32
 SHOTS=16
 
 

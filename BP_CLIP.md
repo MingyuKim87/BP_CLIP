@@ -1,36 +1,81 @@
-## How to Run
+<div align="center">
 
-The running scripts are provided in `scripts/coop_ove_pg/`, `scripts/cocoop_ove_pg/`, `scripts/maple_ove_pg/` and `scripts/apex_ove_pg/` . Make sure you change the path in `DATA` and run the commands under `scripts/coop_ove_pg/`, `scripts/cocoop_ove_pg/`, `scripts/maple_ove_pg/` or `scripts/apex_ove_pg/`.
+# Bayesian Principles Improve Prompt Learning In Vision-Language Models 
 
-### Generalization From Base to New Classes
+<p align="center">
+  [<a href="https://arxiv.org/abs/2504.14123"><strong>ArXiv</strong></a>]  
+  [<a href="https://mingyukim87.github.io/SynergyNeRF/"><strong>Project</strong></a>] 
+  <!-- [<a href="#citation"><strong>BibTeX</strong></a>] -->
+</p>
 
-You will need both `scripts/coop_ove_pg/base2new_train_fp32.sh` and `scripts/coop_ove_pg/base2new_test_fp32.sh`. The former trains a model on base classes while the latter evaluates the trained model on new classes. Both scripts have file input arguments, i.e.:
-* `DATASET` (takes as input a dataset name, like `imagenet` or `caltech101`. The valid names are the files' names in `configs/datasets/`.)
-* `SEED`(Seed number)
-* `GPUIDS` (List of gpu ids, should be provided as a sequence of number, separated by ",")
-* `EPOCHS` (Number of training epochs)
-* `LAMBDA1` (Weight of KLD)
+</div>
 
-Below we provide an example on how to train and evaluate the model on all datasets.
+<!-- <a href="https://arxiv.org/abs/2402.03898"><img src="https://img.shields.io/badge/Paper-arXiv:2402.03898-Green"></a>
+<a href=#bibtex><img src="https://img.shields.io/badge/Paper-BibTex-yellow"></a> -->
+
+Official PyTorch implementation of **BP CLIP**, as presented in our paper: \
+\
+**Bayesian Principles Improve Prompt Learning In Vision-Language Models (AISTATS2025)** \
+[Mingyu Kim](https://mingyukim87.github.io/)<sup>1*</sup>, [Jongwoo Ko](https://sites.google.com/view/jongwooko)<sup>2*</sup>, 
+and [Mijung Park](https://www.cs.ubc.ca/~mijungp/)<sup>3</sup> \
+<sup>1</sup>UBC CS, <sup>2</sup>KAIST AI, <sup>3</sup>UBC CS  
+(<sup>*</sup> indicates co-first authors)
+
+<!-- <img src="https://mingyukim87.github.io/SynergyNeRF/img/2_Overview_2.png" width="100%">   -->
+
+## Update
+- [x] Training code.
+- [x] Inference code.
+- [x] Datasets.
+
+
+## 🚀 How to Run
+
+Official scripts are provided under the following directories:
+- `scripts/coop_ove_pg/`
+- `scripts/cocoop_ove_pg/`
+- `scripts/maple_ove_pg/`
+- `scripts/apex_ove_pg/`
+
+> **Note:**  
+> Replace `{model}` with one of: `coop`, `cocoop`, `maple`, `apex`.  
+> Make sure to set the correct `DATA` path before running any script.  
+> Run the commands inside the corresponding script directories.
+
+---
+
+### 🟦 1. Generalization: Base to New Classes
+
+You will need two scripts:
+- `base2new_train.sh` &nbsp;&nbsp;→&nbsp; Train on base classes
+- `base2new_test.sh` &nbsp;&nbsp;→&nbsp; Evaluate on novel classes
+
+Each script accepts the following arguments:
+- `DATASET` &nbsp;&nbsp;*(e.g., `UCF101`, `caltech101`, corresponding to files in `configs/datasets/`)*
+- `SEED` &nbsp;&nbsp;*(random seed)*
+- `GPUIDS` &nbsp;&nbsp;*(comma-separated GPU id list)*
+- `EPOCHS` &nbsp;&nbsp;*(number of training epochs)*
+- `LAMBDA1` &nbsp;&nbsp;*(weight for KLD)*
+
+**Example:**
 
 ```bash
-# Generalization from base to New classes
-python train_eval_bayesian.py --gpuids 0 --epochs 10 
-
-# Generalization from base to New classes using float32
-python train_eval_bayesian_fp32.py --gpuids 0 --epochs 10 
+# Generalization from base to new classes
+python scripts/{model}_ove_pg/script_base2new_all_datasets.py --gpuids 0 --epochs 10 
 ```
+---
 
-### Cross-Dataset Transfer
+### 🟩 2. Cross-Dataset Transfer
 
-In this experiment, the lambda_1 is set to the default 0.2
+For cross-dataset transfer experiments, set `lambda_1` to the default value of `0.2`.
+
+You will need two scripts:
+- `xd_train.sh` &nbsp;&nbsp;→&nbsp; Train on ImageNet
+- `xd_test.sh` &nbsp;&nbsp;→&nbsp; Evaluate on downstream datasets (e.g., `UCF101`, `caltech101`, corresponding to files in `configs/datasets/`)
+
+**Example usage:**
 
 ```bash
-# float16
-python train_cross_dataset.py --gpuids 0 --epochs 10
-python eval_cross_all_datasets.py --gpuids 0 --epochs 10
+# Training ImageNet dataset and Evaluate downstreamed datset
+python scripts/{model}_ove_pg/script_cross_all_datasets.py --gpuids 0 --epochs 10
 
-# float32
-python train_cross_dataset_fp32.py --gpuids 0 --epochs 10
-python eval_cross_all_datasets_fp32.py --gpuids 0 --epochs 10
-```

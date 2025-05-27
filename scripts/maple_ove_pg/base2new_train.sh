@@ -12,10 +12,10 @@ GPUIDS=$3
 EPOCHS=$4
 LAMBDA1=$5
 
-CFG=vit_b16_c4_ep10_batch4_ctxv1
+CFG=vit_b16_c4_ep10_batch4_ctxv1_fp32
 SHOTS=16
 
-DIR=output/base2new/train_base/${DATASET}/epochs_${EPOCHS}/shots_${SHOTS}/${TRAINER}_${LAMBDA1}/${CFG}/seed${SEED}
+DIR=output/base2new/train_base/${DATASET}/epochs_${EPOCHS}/shots_${SHOTS}/${TRAINER}_${LAMBDA1}_fp32/${CFG}/seed${SEED}
 if [ -d "$DIR" ]; then
     echo "Oops! The results exist at ${DIR} (so skip this job)"
 else

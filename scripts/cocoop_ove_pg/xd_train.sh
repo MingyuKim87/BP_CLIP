@@ -11,7 +11,7 @@ SEED=$1
 EPOCHS=$2
 LAMBDA1=$3
 
-CFG=vit_b16_c4_ep10_batch1_ctxv1
+CFG=vit_b16_c4_ep10_batch1_ctxv1_fp32
 SHOTS=16
 
 

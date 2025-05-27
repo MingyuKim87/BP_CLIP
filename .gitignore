@@ -6,6 +6,7 @@ __pycache__/
 *tsne*
 
 *analysis*
+data/
 output/
 output_temp/
 output_temp_2/
